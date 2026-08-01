@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+version="0.12.4"
+install_root="/opt/nvim-linux-x86_64"
+archive="/tmp/nvim-linux-x86_64.tar.gz"
+
+if command -v nvim >/dev/null 2>&1; then
+  current="$(nvim --version | head -1)"
+
+  if [[ "$current" == "NVIM v${version}" ]]; then
+    printf 'Neovim already installed: %s\n' "$current"
+    exit 0
+  fi
+fi
+
+curl -fL \
+  "https://github.com/neovim/neovim/releases/download/v${version}/nvim-linux-x86_64.tar.gz" \
+  -o "$archive"
+
+sudo rm -rf "$install_root"
+sudo tar -C /opt -xzf "$archive"
+
+sudo chmod 755 \
+  "$install_root" \
+  "$install_root/bin" \
+  "$install_root/bin/nvim"
+
+printf 'Neovim installed: %s\n' "$("$install_root/bin/nvim" --version | head -1)"

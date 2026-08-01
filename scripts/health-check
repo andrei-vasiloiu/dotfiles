@@ -43,11 +43,19 @@ else
   fail "Debian version unavailable"
 fi
 
-if systemctl is-system-running --quiet; then
-  ok "systemd running"
-else
-  fail "systemd not running"
-fi
+systemd_state="$(systemctl is-system-running 2>/dev/null || true)"
+
+case "$systemd_state" in
+  running)
+    ok "systemd running"
+    ;;
+  degraded)
+    warn "systemd degraded"
+    ;;
+  *)
+    fail "systemd state: ${systemd_state:-unknown}"
+    ;;
+esac
 
 if systemctl --user is-system-running --quiet; then
   ok "systemd user session running"

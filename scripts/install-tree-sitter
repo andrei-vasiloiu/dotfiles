@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+version="0.26.8"
+archive="/tmp/tree-sitter-cli-linux-x64.zip"
+
+if command -v tree-sitter >/dev/null 2>&1; then
+  current="$(tree-sitter --version | awk '{print $2}')"
+
+  if [[ "$current" == "$version" ]]; then
+    printf 'tree-sitter already installed: %s\n' "$current"
+    exit 0
+  fi
+fi
+
+curl -fL \
+  "https://github.com/tree-sitter/tree-sitter/releases/download/v${version}/tree-sitter-cli-linux-x64.zip" \
+  -o "$archive"
+
+unzip -o "$archive" -d /tmp/tree-sitter-cli
+sudo install -m 0755 /tmp/tree-sitter-cli/tree-sitter /usr/local/bin/tree-sitter
+
+printf 'tree-sitter installed: %s\n' "$(tree-sitter --version)"

@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 mise_bin="$HOME/.local/bin/mise"
 
 if [[ ! -x "$mise_bin" ]]; then
   curl https://mise.run | sh
 fi
 
-eval "$("$mise_bin" activate bash)"
+export MISE_CONFIG_FILE="$repo_root/mise/.config/mise/config.toml"
 
-mise install
-corepack enable
+"$mise_bin" install
 
-printf 'mise: %s\n' "$(mise --version)"
-printf 'node: %s\n' "$(node --version)"
-printf 'pnpm: %s\n' "$(pnpm --version)"
+if ! "$mise_bin" exec -- corepack --version >/dev/null 2>&1; then
+  "$mise_bin" exec -- npm install --global corepack
+fi
+
+"$mise_bin" exec -- corepack enable
+"$mise_bin" exec -- corepack prepare pnpm@11.18.0 --activate
+
+printf 'mise: %s\n' "$("$mise_bin" --version)"
+printf 'node: %s\n' "$("$mise_bin" exec -- node --version)"
+printf 'pnpm: %s\n' "$("$mise_bin" exec -- pnpm --version)"
