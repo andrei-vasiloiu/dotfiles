@@ -45,8 +45,8 @@ if release:find("microsoft", 1, true) then
       ["*"] = "/mnt/c/Windows/System32/clip.exe",
     },
     paste = {
-      ["+"] = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoLogo -NoProfile -Command '[Console]::Out.Write($(Get-Clipboard -Raw).ToString().Replace(\"`r\", \"\"))'",
-      ["*"] = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoLogo -NoProfile -Command '[Console]::Out.Write($(Get-Clipboard -Raw).ToString().Replace(\"`r\", \"\"))'",
+      ["+"] = '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoLogo -NoProfile -Command \'[Console]::Out.Write($(Get-Clipboard -Raw).ToString().Replace("`r", ""))\'',
+      ["*"] = '/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoLogo -NoProfile -Command \'[Console]::Out.Write($(Get-Clipboard -Raw).ToString().Replace("`r", ""))\'',
     },
     cache_enabled = 0,
   }

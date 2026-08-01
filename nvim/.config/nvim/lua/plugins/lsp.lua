@@ -119,12 +119,7 @@ return {
             ".git",
           })
 
-          on_dir(
-            root
-              or vim.fs.dirname(
-                vim.api.nvim_buf_get_name(bufnr)
-              )
-          )
+          on_dir(root or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
         end,
       })
 
