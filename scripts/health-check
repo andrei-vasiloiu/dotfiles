@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+set -u
+
+failures=0
+warnings=0
+
+ok() {
+  printf 'OK    %s\n' "$1"
+}
+
+warn() {
+  printf 'WARN  %s\n' "$1"
+  warnings=$((warnings + 1))
+}
+
+fail() {
+  printf 'FAIL  %s\n' "$1"
+  failures=$((failures + 1))
+}
+
+check_command() {
+  local command_name="$1"
+  local label="${2:-$1}"
+
+  if command -v "$command_name" >/dev/null 2>&1; then
+    ok "$label"
+  else
+    fail "$label"
+  fi
+}
+
+printf 'Platform\n'
+
+if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
+  ok "WSL2 detected"
+else
+  warn "WSL2 not detected"
+fi
+
+if [[ -r /etc/debian_version ]]; then
+  ok "Debian $(cat /etc/debian_version)"
+else
+  fail "Debian version unavailable"
+fi
+
+if systemctl is-system-running --quiet; then
+  ok "systemd running"
+else
+  fail "systemd not running"
+fi
+
+if systemctl --user is-system-running --quiet; then
+  ok "systemd user session running"
+else
+  warn "systemd user session not running"
+fi
+
+printf '\nShell and tools\n'
+
+check_command bash
+check_command git
+check_command stow
+check_command tmux
+check_command fzf
+check_command zoxide
+check_command direnv
+check_command rg "ripgrep"
+check_command fdfind "fd"
+check_command batcat "bat"
+
+printf '\nEditor\n'
+
+check_command nvim "Neovim"
+
+if command -v nvim >/dev/null 2>&1; then
+  nvim_version="$(nvim --version | head -1)"
+
+  if [[ "$nvim_version" == "NVIM v0.12.4" ]]; then
+    ok "$nvim_version"
+  else
+    warn "Expected NVIM v0.12.4, found $nvim_version"
+  fi
+
+  if nvim --headless +qa >/dev/null 2>&1; then
+    ok "Neovim configuration loads"
+  else
+    fail "Neovim configuration failed to load"
+  fi
+fi
+
+printf '\nPython\n'
+
+check_command uv
+check_command ruff
+check_command basedpyright
+
+printf '\nTypeScript\n'
+
+check_command mise
+check_command node
+check_command pnpm
+
+printf '\n.NET\n'
+
+check_command dotnet
+check_command roslyn-language-server
+
+printf '\nContainers\n'
+
+check_command podman
+
+if command -v podman >/dev/null 2>&1; then
+  if [[ "$(podman info --format '{{.Host.Security.Rootless}}' 2>/dev/null)" == "true" ]]; then
+    ok "Podman rootless mode"
+  else
+    fail "Podman is not running rootless"
+  fi
+fi
+
+printf '\nGitHub\n'
+
+if ssh -o BatchMode=yes -o ConnectTimeout=5 -T git@github.com 2>&1 |
+    grep -q "successfully authenticated"; then
+  ok "GitHub SSH authentication"
+else
+  warn "GitHub SSH authentication unavailable"
+fi
+
+printf '\nSummary\n'
+printf '%s failure(s), %s warning(s)\n' "$failures" "$warnings"
+
+if (( failures > 0 )); then
+  exit 1
+fi
