@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+package="@earendil-works/pi-coding-agent"
+version="0.83.0"
+
+if ! command -v pnpm >/dev/null 2>&1; then
+  printf 'pnpm is required before installing Pi.\n' >&2
+  exit 1
+fi
+
+installed="$(
+  pnpm list --global --depth 0 --json 2>/dev/null |
+    jq -r --arg package "$package" \
+      '.[0].dependencies[$package].version // empty'
+)"
+
+if [[ "$installed" == "$version" ]]; then
+  printf 'Pi already installed: %s\n' "$(pi --version)"
+  exit 0
+fi
+
+pnpm add --global --ignore-scripts "${package}@${version}"
+
+printf 'Pi installed: %s\n' "$(pi --version)"

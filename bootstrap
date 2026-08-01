@@ -6,6 +6,7 @@ repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 "$repo_root/scripts/install-apt"
 "$repo_root/scripts/install-uv"
 "$repo_root/scripts/install-mise"
+"$repo_root/scripts/install-pi"
 "$repo_root/scripts/install-dotnet"
 "$repo_root/scripts/install-tree-sitter"
 "$repo_root/scripts/install-neovim"
@@ -14,6 +15,7 @@ stow --dir="$repo_root" --target="$HOME" \
   bash \
   mise \
   nvim \
+  pi \
   tmux
 
 "$repo_root/scripts/health-check"

@@ -125,6 +125,10 @@ if command -v podman >/dev/null 2>&1; then
   fi
 fi
 
+printf '\nAI tooling\n'
+
+check_command pi "Pi coding agent"
+
 printf '\nGitHub\n'
 
 if ssh -o BatchMode=yes -o ConnectTimeout=5 -T git@github.com 2>&1 |
