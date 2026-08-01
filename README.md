@@ -146,8 +146,9 @@ After installing minimal Debian and cloning this repository:
 ```bash
 ./scripts/install-native
 ./bootstrap
+./scripts/configure-native
 ```
 
-`install-native` is guarded and will refuse to run under WSL.
+Both native scripts are guarded and will refuse to run under WSL.
 
 Native-only configuration for foot, Sway, Waybar, Fuzzel, Mako, power management, portals, and related desktop services will be added before the laptop build.
