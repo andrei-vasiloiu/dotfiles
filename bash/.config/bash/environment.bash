@@ -100,20 +100,6 @@ export GCC_COLORS='error=01;38;5;167:warning=01;38;5;179:note=01;38;5;110:caret=
 
 export JQ_COLORS='0;38;5;223:0;38;5;223:0;38;5;179:0;38;5;179:0;38;5;114:0;38;5;110:0;38;5;141'
 
-export FD_OPTIONS='
-  --hidden
-  --follow
-  --exclude .git
-  --exclude node_modules
-  --exclude dist
-  --exclude build
-  --exclude coverage
-  --exclude target
-  --exclude .venv
-  --exclude bin
-  --exclude obj
-'
-
 export JQ_COLORS='1;30:0;37:0;33:0;36:0;32:0;35'
 
 export SQLITE_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/sqlite3/history"
