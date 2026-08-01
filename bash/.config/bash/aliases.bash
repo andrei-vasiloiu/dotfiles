@@ -42,3 +42,9 @@ alias sqlite3='sqlite3 -init "${XDG_CONFIG_HOME:-$HOME/.config}/sqlite3/sqliterc
 
 alias ff='fd --type file'
 alias fdall='fd --hidden --no-ignore'
+
+# Safer interactive file operations
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+alias rm='rm --interactive=once'
+alias mkdir='mkdir --parents'
