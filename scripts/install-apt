@@ -3,12 +3,15 @@ set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
+source "$repo_root/scripts/lib/logging.sh"
+
 manifests=(
   "$repo_root/packages/common.txt"
 )
 
 if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
   manifests+=("$repo_root/packages/wsl.txt")
+  log_info "WSL package manifest enabled"
 fi
 
 mapfile -t packages < <(
@@ -16,7 +19,7 @@ mapfile -t packages < <(
     sort -u
 )
 
-printf 'Installing %d APT packages...\n' "${#packages[@]}"
+log_info "Installing ${#packages[@]} APT packages"
 
 sudo apt-get update
 sudo apt-get install -y "${packages[@]}"
