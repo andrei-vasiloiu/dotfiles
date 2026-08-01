@@ -24,13 +24,18 @@ if [[ -z "${SSH_AUTH_SOCK:-}" ]]; then
   agent_env="$HOME/.ssh/agent.env"
 
   if [[ -r "$agent_env" ]]; then
-    source "$agent_env" >/dev/null
+    source "$agent_env" >/dev/null 2>&1 || true
   fi
 
-  if ! ssh-add -l >/dev/null 2>&1; then
+  if [[ -z "${SSH_AGENT_PID:-}" ]] ||
+     ! kill -0 "$SSH_AGENT_PID" 2>/dev/null ||
+     [[ ! -S "${SSH_AUTH_SOCK:-}" ]]; then
     mkdir -p "$HOME/.ssh"
     umask 077
+
     ssh-agent -s > "$agent_env"
     source "$agent_env" >/dev/null
   fi
+
+  unset agent_env
 fi
