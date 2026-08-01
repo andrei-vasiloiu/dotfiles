@@ -1,4 +1,15 @@
 {
+  "theme": "dark",
+  "externalEditor": "nvim",
+  "defaultProjectTrust": "ask",
+  "collapseChangelog": true,
+  "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.83.0",
-  "theme": "dark"
+  "enableSkillCommands": false,
+  "hideThinkingBlock": true,
+  "quietStartup": true,
+  "doubleEscapeAction": "tree",
+  "warnings": {
+    "anthropicExtraUsage": true
+  }
 }
