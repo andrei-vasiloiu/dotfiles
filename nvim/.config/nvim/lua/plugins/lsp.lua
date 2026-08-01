@@ -13,14 +13,24 @@ return {
         float = {
           border = "rounded",
           source = true,
+          focusable = false,
         },
       })
 
-      local group = vim.api.nvim_create_augroup("user_lsp", { clear = true })
+      local group = vim.api.nvim_create_augroup("user_lsp", {
+        clear = true,
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = group,
+
         callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+          if client and client.name == "ruff" then
+            client.server_capabilities.hoverProvider = false
+          end
+
           local map = function(mode, lhs, rhs, desc)
             vim.keymap.set(mode, lhs, rhs, {
               buffer = args.buf,
@@ -37,72 +47,93 @@ return {
           map("n", "<leader>lr", vim.lsp.buf.rename, "Rename symbol")
           map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "Code action")
           map("n", "<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
+
           map("n", "[d", function()
-            vim.diagnostic.jump({ count = -1, float = true })
+            vim.diagnostic.jump({
+              count = -1,
+              float = true,
+            })
           end, "Previous diagnostic")
+
           map("n", "]d", function()
-            vim.diagnostic.jump({ count = 1, float = true })
+            vim.diagnostic.jump({
+              count = 1,
+              float = true,
+            })
           end, "Next diagnostic")
         end,
       })
 
-      vim.api.nvim_create_autocmd("LspAttach", {
-          group = group,
-          callback = function(args)
-              local client = vim.lsp.get_client_by_id(args.data.client_id)
+      vim.api.nvim_create_autocmd("CursorHold", {
+        group = group,
 
-              if client and client.name == "ruff" then
-                  client.server_capabilities.hoverProvider = false
-              end
-          end,
+        callback = function()
+          vim.diagnostic.open_float(nil, {
+            scope = "cursor",
+            focus = false,
+          })
+        end,
       })
 
       vim.lsp.config("tsgo", {
-          cmd = { "pnpm", "exec", "tsgo", "--lsp", "--stdio" },
-          filetypes = {
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-          },
-          root_markers = {
-              "tsconfig.json",
-              "jsconfig.json",
-              "package.json",
-              ".git",
-          },
+        cmd = {
+          "pnpm",
+          "exec",
+          "tsgo",
+          "--lsp",
+          "--stdio",
+        },
+
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+        },
+
+        root_markers = {
+          "tsconfig.json",
+          "jsconfig.json",
+          "package.json",
+          ".git",
+        },
       })
 
       vim.lsp.config("roslyn", {
-          cmd = {
-              "roslyn-language-server",
-              "--stdio",
-              "--autoLoadProjects",
-              "--telemetryLevel",
-              "off",
-          },
-          filetypes = { "cs" },
+        cmd = {
+          "roslyn-language-server",
+          "--stdio",
+          "--autoLoadProjects",
+          "--telemetryLevel",
+          "off",
+        },
 
-          root_dir = function(bufnr, on_dir)
-              local root = vim.fs.root(bufnr, {
-                  "*.sln",
-                  "*.slnx",
-                  "*.csproj",
-                  "global.json",
-                  ".git",
-              })
+        filetypes = { "cs" },
 
-              on_dir(root or vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)))
-          end,
+        root_dir = function(bufnr, on_dir)
+          local root = vim.fs.root(bufnr, {
+            "*.sln",
+            "*.slnx",
+            "*.csproj",
+            "global.json",
+            ".git",
+          })
+
+          on_dir(
+            root
+              or vim.fs.dirname(
+                vim.api.nvim_buf_get_name(bufnr)
+              )
+          )
+        end,
       })
 
       vim.lsp.enable({
-          "basedpyright",
-          "ruff",
-          "tsgo",
-          "roslyn",
+        "basedpyright",
+        "ruff",
+        "tsgo",
+        "roslyn",
       })
-
-  end,
+    end,
   },
-  }
+}
