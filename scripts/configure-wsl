@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+
 if ! grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
-  printf 'This script is intended for WSL.\n' >&2
+  log_error "This script is intended for WSL"
   exit 1
 fi
+
+log_info "Writing /etc/wsl.conf"
 
 sudo tee /etc/wsl.conf >/dev/null <<EOF_WSL
 [boot]
@@ -23,15 +29,18 @@ if [[ -f "$HOME/.bashrc" && ! -L "$HOME/.bashrc" ]]; then
 
   if [[ ! -e "$backup" ]]; then
     mv "$HOME/.bashrc" "$backup"
-    printf 'Saved existing .bashrc as %s\n' "$backup"
+    log_info "Saved existing .bashrc as ${backup}"
   else
     rm "$HOME/.bashrc"
-    printf 'Removed existing .bashrc; backup already exists.\n'
+    log_info "Removed existing .bashrc; backup already exists"
   fi
 fi
 
+log_info "Disabling unnecessary WSL getty"
 sudo systemctl disable --now getty@tty1.service 2>/dev/null || true
 sudo systemctl reset-failed
+
+log_info "Enabling user lingering"
 sudo loginctl enable-linger "$USER"
 
 printf '\nWSL preparation complete.\n'
