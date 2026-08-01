@@ -10,7 +10,9 @@ shopt -s lithist
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=less
-export LESS='-R'
+export LESS='-FRX --mouse'
+export LESSHISTFILE='-'
+export MANPAGER='less -R --use-color -Dd+r -Du+b'
 
 if [[ -x "$HOME/.local/bin/mise" ]]; then
   eval "$("$HOME/.local/bin/mise" activate bash)"
