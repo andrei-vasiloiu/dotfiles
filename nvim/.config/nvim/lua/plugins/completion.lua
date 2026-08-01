@@ -2,6 +2,7 @@ return {
   {
     "saghen/blink.cmp",
     version = "1.*",
+    branch = "v1",
 
     opts = {
       keymap = {
@@ -14,6 +15,8 @@ return {
         ["<CR>"] = { "accept", "fallback" },
         ["<Tab>"] = { "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       },
 
       completion = {
