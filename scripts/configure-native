@@ -21,6 +21,7 @@ packages=(
   mako
   sway
   swaylock
+  swappy
   waybar
 )
 
