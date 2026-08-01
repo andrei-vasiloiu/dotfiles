@@ -1,6 +1,8 @@
 if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+  # shellcheck disable=SC1091
   source /usr/share/bash-completion/bash_completion
 elif [[ -r /etc/bash_completion ]]; then
+  # shellcheck disable=SC1091
   source /etc/bash_completion
 fi
 
@@ -16,7 +18,17 @@ if command -v fzf >/dev/null 2>&1; then
   if fzf --bash >/dev/null 2>&1; then
     eval "$(fzf --bash)"
   elif [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
+    # shellcheck disable=SC1091
     source /usr/share/doc/fzf/examples/key-bindings.bash
+    # shellcheck disable=SC1091
     source /usr/share/doc/fzf/examples/completion.bash
   fi
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+  bind -x '"\C-r": fh'
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+  bind -x '"\C-f": vf'
 fi

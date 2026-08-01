@@ -40,3 +40,52 @@ paste() {
     return 1
   fi
 }
+
+cdf() {
+  local directory
+
+  directory="$(
+    fd \
+      --type directory \
+      --hidden \
+      --exclude .git \
+      . "${1:-.}" |
+      fzf --prompt='directory › ' --height=40% --reverse
+  )" || return
+
+  [[ -n "$directory" ]] && cd -- "$directory"
+}
+
+vf() {
+  local file
+
+  file="$(
+    fd \
+      --type file \
+      --hidden \
+      --exclude .git |
+      fzf \
+        --prompt='file › ' \
+        --height=60% \
+        --reverse \
+        --preview 'batcat --color=always --style=numbers --line-range=:300 {} 2>/dev/null || sed -n "1,300p" {}'
+  )" || return
+
+  [[ -n "$file" ]] && "${EDITOR:-nvim}" -- "$file"
+}
+
+fh() {
+  local command
+
+  command="$(
+    history |
+      sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' |
+      awk '!seen[$0]++' |
+      fzf --prompt='history › ' --height=60% --reverse
+  )" || return
+
+  [[ -n "$command" ]] || return
+
+  READLINE_LINE="$command"
+  READLINE_POINT=${#READLINE_LINE}
+}
