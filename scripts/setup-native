@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+
+enable_error_trap
+require_debian
+
+if is_wsl; then
+  log_error "Native setup must not be run under WSL"
+  exit 1
+fi
+
+log_step "Installing native Debian packages"
+"$repo_root/scripts/install-native"
+
+log_step "Installing shared development environment"
+"$repo_root/bootstrap"
+
+log_step "Applying native desktop configuration"
+"$repo_root/scripts/configure-native"
+
+log_step "Configuring native services"
+"$repo_root/scripts/configure-services"
+
+log_step "Configuring greetd"
+"$repo_root/scripts/configure-greetd"
+
+log_step "Running final health check"
+"$repo_root/scripts/health-check"
