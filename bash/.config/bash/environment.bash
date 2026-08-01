@@ -2,8 +2,10 @@ HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=50000
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T  '
+export HISTIGNORE='&:ls:ll:la:lt:cd:cd ..:pwd:clear:history:exit'
 
 shopt -s histappend
+shopt -s histverify
 shopt -s cmdhist
 shopt -s lithist
 
