@@ -4,6 +4,7 @@ set -Eeuo pipefail
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/versions.env"
 
 if ! command -v uv >/dev/null 2>&1; then
   log_info "Installing uv"
@@ -16,8 +17,7 @@ fi
 log_info "Installing Python tools"
 uv tool install --force ruff
 uv tool install --force basedpyright
-uv tool install --force \
-  'git+https://github.com/JohnnyMorganz/StyLua.git@v2.5.2'
+uv tool install --force "git+https://github.com/JohnnyMorganz/StyLua.git@v${STYLUA_VERSION}"
 
 log_info "ruff: $(ruff --version)"
 log_info "basedpyright: $(basedpyright --version | head -1)"
