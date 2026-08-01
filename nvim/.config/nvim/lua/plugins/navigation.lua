@@ -14,7 +14,7 @@ return {
       { "<leader>lS", "<cmd>FzfLua lsp_workspace_symbols<CR>", desc = "Workspace symbols" },
       { "<leader>lr", "<cmd>FzfLua lsp_references<CR>", desc = "References" },
       { "<leader>li", "<cmd>FzfLua lsp_implementations<CR>", desc = "Implementations" },
-      { "<leader>ld", "<cmd>FzfLua lsp_definitions<CR>", desc = "Definitions" },
+      { "<leader>lg", "<cmd>FzfLua lsp_definitions<CR>", desc = "Definitions" },
     },
 
     opts = {
