@@ -20,7 +20,9 @@ done
 unset file
 
 # shellcheck disable=SC1091
-. "$HOME/.local/bin/env"
+if [[ -r "$HOME/.local/bin/env" ]]; then
+  source "$HOME/.local/bin/env"
+fi
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
