@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 package="@earendil-works/pi-coding-agent"
 version="0.83.0"
 
+source "$repo_root/scripts/lib/logging.sh"
+
 if ! command -v pnpm >/dev/null 2>&1; then
-  printf 'pnpm is required before installing Pi.\n' >&2
+  log_error "pnpm is required before installing Pi"
   exit 1
 fi
 
@@ -16,10 +19,11 @@ installed="$(
 )"
 
 if [[ "$installed" == "$version" ]]; then
-  printf 'Pi already installed: %s\n' "$(pi --version)"
+  log_info "Pi already installed: $(pi --version)"
   exit 0
 fi
 
+log_info "Installing Pi ${version}"
 pnpm add --global --ignore-scripts "${package}@${version}"
 
-printf 'Pi installed: %s\n' "$(pi --version)"
+log_info "Pi: $(pi --version)"
