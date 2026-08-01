@@ -160,6 +160,8 @@ fi
 
 printf '\nGitHub\n'
 
+check_command gh "GitHub CLI"
+
 if ssh -o BatchMode=yes -o ConnectTimeout=5 -T git@github.com 2>&1 |
     grep -q "successfully authenticated"; then
   ok "GitHub SSH authentication"

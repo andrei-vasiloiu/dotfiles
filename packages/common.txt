@@ -48,3 +48,4 @@ git-delta
 duf
 procs
 xh
+gh
