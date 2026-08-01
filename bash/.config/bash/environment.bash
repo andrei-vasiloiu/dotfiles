@@ -113,3 +113,5 @@ export FD_OPTIONS='
   --exclude bin
   --exclude obj
 '
+
+export JQ_COLORS='1;30:0;37:0;33:0;36:0;32:0;35'

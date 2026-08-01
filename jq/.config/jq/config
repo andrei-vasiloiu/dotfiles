@@ -1,0 +1,2 @@
+# jq uses CLI flags rather than a config file.
+# This file is kept as documentation for jq conventions.

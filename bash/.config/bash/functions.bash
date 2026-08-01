@@ -166,3 +166,11 @@ bash-profile() {
 
   rm -f "$profile"
 }
+
+jqp() {
+  if [[ -t 0 ]]; then
+    jq '.' "$@"
+  else
+    jq '.'
+  fi
+}
