@@ -3,14 +3,30 @@ set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
+source "$repo_root/scripts/lib/logging.sh"
+
+log_step "Installing APT packages"
 "$repo_root/scripts/install-apt"
+
+log_step "Installing Python tooling"
 "$repo_root/scripts/install-uv"
+
+log_step "Installing Node.js and pnpm"
 "$repo_root/scripts/install-mise"
+
+log_step "Installing Pi"
 "$repo_root/scripts/install-pi"
+
+log_step "Installing .NET and Roslyn"
 "$repo_root/scripts/install-dotnet"
+
+log_step "Installing Tree-sitter CLI"
 "$repo_root/scripts/install-tree-sitter"
+
+log_step "Installing Neovim"
 "$repo_root/scripts/install-neovim"
 
+log_step "Applying dotfiles"
 stow --dir="$repo_root" --target="$HOME" \
   bash \
   git \
@@ -19,4 +35,5 @@ stow --dir="$repo_root" --target="$HOME" \
   pi \
   tmux
 
+log_step "Running health check"
 "$repo_root/scripts/health-check"
