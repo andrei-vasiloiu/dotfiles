@@ -1,0 +1,33 @@
+# Editing
+set editing-mode emacs
+set keymap emacs-standard
+
+# Completion
+set completion-ignore-case on
+set completion-map-case on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set menu-complete-display-prefix on
+set colored-stats on
+set colored-completion-prefix on
+set visible-stats on
+set mark-symlinked-directories on
+set skip-completed-text on
+
+# History search based on the current prefix
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Cycle completion candidates
+"\t": menu-complete
+"\e[Z": menu-complete-backward
+
+# Word navigation
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+"\e[5D": backward-word
+"\e[5C": forward-word
+
+# Delete by word
+"\C-H": backward-kill-word
+"\e[3;5~": kill-word
