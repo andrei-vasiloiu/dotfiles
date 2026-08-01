@@ -48,6 +48,7 @@ stow --dir="$repo_root" --target="$HOME" \
   pi \
   ripgrep \
   ssh \
+  sqlite \
   tealdeer \
   tmux
 

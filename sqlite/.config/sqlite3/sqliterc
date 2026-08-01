@@ -1,0 +1,6 @@
+.headers on
+.mode box
+.nullvalue NULL
+.timer on
+.echo off
+.bail on

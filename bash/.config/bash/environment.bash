@@ -115,3 +115,6 @@ export FD_OPTIONS='
 '
 
 export JQ_COLORS='1;30:0;37:0;33:0;36:0;32:0;35'
+
+export SQLITE_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/sqlite3/history"
+export SQLITE_TMPDIR="${TMPDIR:-/tmp}"
