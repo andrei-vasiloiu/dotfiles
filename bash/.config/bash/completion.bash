@@ -30,3 +30,17 @@ if command -v fzf >/dev/null 2>&1; then
   bind -x '"\C-gb": gco'
   bind -x '"\C-gl": glog'
 fi
+
+# Completion behavior
+bind 'set completion-ignore-case on'
+bind 'set completion-map-case on'
+bind 'set show-all-if-ambiguous on'
+bind 'set menu-complete-display-prefix on'
+
+# Complete aliases as their underlying commands
+if command -v _complete_alias >/dev/null 2>&1; then
+  complete -F _complete_alias \
+    ll \
+    la \
+    lt
+fi
