@@ -45,3 +45,6 @@ tealdeer
 glow
 btop
 git-delta
+duf
+procs
+xh
