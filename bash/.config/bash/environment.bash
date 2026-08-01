@@ -19,3 +19,7 @@ fi
 if [[ -x "$HOME/.local/bin/mise" ]]; then
   eval "$("$HOME/.local/bin/mise" activate bash)"
 fi
+
+if [[ -d "$HOME/.dotnet/tools" ]]; then
+  export PATH="$HOME/.dotnet/tools:$PATH"
+fi

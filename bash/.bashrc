@@ -18,3 +18,17 @@ done
 unset file
 
 . "$HOME/.local/bin/env"
+
+# pnpm
+export PNPM_HOME="/home/andrei/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# neovim
+export NVIM_HOME="/opt/nvim-linux-x86_64"
+case ":$PATH:" in
+  *":$NVIM_HOME/bin:"*) ;;
+  *) export PATH="$NVIM_HOME/bin:$PATH" ;;
+esac
