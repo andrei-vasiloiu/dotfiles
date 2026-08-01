@@ -1,9 +1,11 @@
-if [[ -r /usr/share/bash-completion/bash_completion ]]; then
-  # shellcheck disable=SC1091
-  source /usr/share/bash-completion/bash_completion
-elif [[ -r /etc/bash_completion ]]; then
-  # shellcheck disable=SC1091
-  source /etc/bash_completion
+if ! declare -p BASH_COMPLETION_VERSINFO >/dev/null 2>&1; then
+  if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+    # shellcheck disable=SC1091
+    source /usr/share/bash-completion/bash_completion
+  elif [[ -r /etc/bash_completion ]]; then
+    # shellcheck disable=SC1091
+    source /etc/bash_completion
+  fi
 fi
 
 completion_dir="$HOME/.local/share/bash-completion/completions"
