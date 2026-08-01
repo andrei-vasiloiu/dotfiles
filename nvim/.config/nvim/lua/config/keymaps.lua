@@ -33,6 +33,13 @@ map("n", "J", "mzJ`z", { desc = "Join lines without moving cursor" })
 map("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Horizontal split" })
 map("n", "<leader>se", "<C-w>=", { desc = "Equalize splits" })
-map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close split" }
+map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close split" })
 
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
+map("n", "[q", "<cmd>cprevious<CR>zz", { desc = "Previous quickfix item" })
 
+map("n", "]l", "<cmd>lnext<CR>zz", { desc = "Next location item" })
+map("n", "[l", "<cmd>lprevious<CR>zz", { desc = "Previous location item" })
+
+map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
+map("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
