@@ -57,9 +57,26 @@ return {
           end,
       })
 
+      vim.lsp.config("tsgo", {
+          cmd = { "pnpm", "exec", "tsgo", "--lsp", "--stdio" },
+          filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+          },
+          root_markers = {
+              "tsconfig.json",
+              "jsconfig.json",
+              "package.json",
+              ".git",
+          },
+      })
+
       vim.lsp.enable({
           "basedpyright",
           "ruff",
+          "tsgo",
       })
 
   end,
