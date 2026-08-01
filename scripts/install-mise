@@ -5,6 +5,7 @@ repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 mise_bin="$HOME/.local/bin/mise"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/versions.env"
 
 if [[ ! -x "$mise_bin" ]]; then
   log_info "Installing mise"
@@ -23,9 +24,9 @@ if ! "$mise_bin" exec -- corepack --version >/dev/null 2>&1; then
   "$mise_bin" exec -- npm install --global corepack
 fi
 
-log_info "Activating pnpm 11.18.0"
+log_info "Activating pnpm ${PNPM_VERSION}"
 "$mise_bin" exec -- corepack enable
-"$mise_bin" exec -- corepack prepare pnpm@11.18.0 --activate
+"$mise_bin" exec -- corepack prepare "pnpm@${PNPM_VERSION}" --activate
 
 log_info "mise: $("$mise_bin" --version)"
 log_info "node: $("$mise_bin" exec -- node --version)"
