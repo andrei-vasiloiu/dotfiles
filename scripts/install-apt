@@ -3,11 +3,20 @@ set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
-mapfile -t packages < <(
-    grep -hEv '^[[:space:]]*(#|$)' \
-        "$repo_root/packages/common.txt" \
-        "$repo_root/packages/wsl.txt"
+manifests=(
+  "$repo_root/packages/common.txt"
 )
+
+if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
+  manifests+=("$repo_root/packages/wsl.txt")
+fi
+
+mapfile -t packages < <(
+  grep -hEv '^[[:space:]]*(#|$)' "${manifests[@]}" |
+    sort -u
+)
+
+printf 'Installing %d APT packages...\n' "${#packages[@]}"
 
 sudo apt-get update
 sudo apt-get install -y "${packages[@]}"

@@ -1,4 +1,3 @@
-"$repo_root/scripts/install-mise0
 bash-completion
 bat
 build-essential
