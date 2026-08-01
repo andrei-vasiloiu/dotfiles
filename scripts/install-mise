@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+mise_bin="$HOME/.local/bin/mise"
+
+if [[ ! -x "$mise_bin" ]]; then
+  curl https://mise.run | sh
+fi
+
+eval "$("$mise_bin" activate bash)"
+
+mise install
+corepack enable
+
+printf 'mise: %s\n' "$(mise --version)"
+printf 'node: %s\n' "$(node --version)"
+printf 'pnpm: %s\n' "$(pnpm --version)"
