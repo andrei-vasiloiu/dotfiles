@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+
+require_debian
+
+if is_wsl; then
+  log_error "greetd configuration must not be applied under WSL"
+  exit 1
+fi
+
+if [[ ! -x /usr/bin/tuigreet ]]; then
+  log_error "tuigreet is not installed"
+  exit 1
+fi
+
+log_info "Installing greetd configuration"
+
+sudo install \
+  --owner=root \
+  --group=root \
+  --mode=0644 \
+  "$repo_root/native/greetd/config.toml" \
+  /etc/greetd/config.toml
+
+sudo systemctl enable greetd.service
+
+log_info "greetd configured and enabled"
