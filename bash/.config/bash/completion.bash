@@ -6,6 +6,18 @@ elif [[ -r /etc/bash_completion ]]; then
   source /etc/bash_completion
 fi
 
+if command -v gh >/dev/null 2>&1; then
+  eval "$(gh completion -s bash)"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion bash)"
+fi
+
+if command -v uvx >/dev/null 2>&1; then
+  eval "$(uvx --generate-shell-completion bash)"
+fi
+
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
