@@ -47,6 +47,7 @@ stow --dir="$repo_root" --target="$HOME" \
   nvim \
   pi \
   ripgrep \
+  ssh \
   tealdeer \
   tmux
 
