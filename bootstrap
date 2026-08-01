@@ -36,6 +36,9 @@ log_step "Installing Tree-sitter CLI"
 log_step "Installing Neovim"
 "$repo_root/scripts/install-neovim"
 
+log_step "Generating CLI completions"
+"$repo_root/scripts/install-completions"
+
 log_step "Applying dotfiles"
 stow --dir="$repo_root" --target="$HOME" \
   bash \

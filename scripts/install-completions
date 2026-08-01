@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+completion_dir="$repo_root/bash/.local/share/bash-completion/completions"
+
+source "$repo_root/scripts/lib/logging.sh"
+
+mkdir -p "$completion_dir"
+
+generate_completion() {
+  local command_name="$1"
+  local output_path="$2"
+  shift 2
+
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    log_warn "Skipping completion for unavailable command: $command_name"
+    return
+  fi
+
+  log_info "Generating completion for $command_name"
+  "$@" > "$output_path"
+}
+
+generate_completion gh \
+  "$completion_dir/gh" \
+  gh completion -s bash
+
+generate_completion uv \
+  "$completion_dir/uv" \
+  uv generate-shell-completion bash
+
+generate_completion uvx \
+  "$completion_dir/uvx" \
+  uvx --generate-shell-completion bash
+
+generate_completion podman \
+  "$completion_dir/podman" \
+  podman completion bash
+
+generate_completion pnpm \
+  "$completion_dir/pnpm" \
+  pnpm completion bash
+
+log_info "CLI completions generated"
