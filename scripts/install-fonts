@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+source "$repo_root/scripts/versions.env"
+
+require_debian
+
+archive="$(mktemp)"
+font_dir="$HOME/.local/share/fonts/JetBrainsMonoNerdFont"
+
+cleanup() {
+  rm -f "$archive"
+}
+trap cleanup EXIT
+
+url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${NERD_FONTS_VERSION}/JetBrainsMono.tar.xz"
+
+log_info "Installing JetBrainsMono Nerd Font ${NERD_FONTS_VERSION}"
+
+curl \
+  --fail \
+  --location \
+  --show-error \
+  --silent \
+  "$url" \
+  --output "$archive"
+
+mkdir -p "$font_dir"
+rm -f "$font_dir"/*
+
+tar \
+  --extract \
+  --file="$archive" \
+  --directory="$font_dir" \
+  --xz \
+  --wildcards \
+  '*.ttf'
+
+fc-cache --force "$font_dir"
+
+log_info "JetBrainsMono Nerd Font installed"
