@@ -19,3 +19,18 @@ fi
 if [[ -d "$HOME/.dotnet/tools" ]]; then
   export PATH="$HOME/.dotnet/tools:$PATH"
 fi
+
+if [[ -z "${SSH_AUTH_SOCK:-}" ]]; then
+  agent_env="$HOME/.ssh/agent.env"
+
+  if [[ -r "$agent_env" ]]; then
+    source "$agent_env" >/dev/null
+  fi
+
+  if ! ssh-add -l >/dev/null 2>&1; then
+    mkdir -p "$HOME/.ssh"
+    umask 077
+    ssh-agent -s > "$agent_env"
+    source "$agent_env" >/dev/null
+  fi
+fi
