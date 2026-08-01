@@ -43,3 +43,5 @@ xz-utils
 zstd
 tealdeer
 glow
+btop
+git-delta
