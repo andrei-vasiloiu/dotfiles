@@ -4,21 +4,29 @@ set -Eeuo pipefail
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 mise_bin="$HOME/.local/bin/mise"
 
+source "$repo_root/scripts/lib/logging.sh"
+
 if [[ ! -x "$mise_bin" ]]; then
+  log_info "Installing mise"
   curl https://mise.run | sh
+else
+  log_info "mise already installed: $("$mise_bin" --version)"
 fi
 
 export MISE_CONFIG_FILE="$repo_root/mise/.config/mise/config.toml"
 
+log_info "Installing managed runtimes"
 "$mise_bin" install
 
 if ! "$mise_bin" exec -- corepack --version >/dev/null 2>&1; then
+  log_info "Installing Corepack"
   "$mise_bin" exec -- npm install --global corepack
 fi
 
+log_info "Activating pnpm 11.18.0"
 "$mise_bin" exec -- corepack enable
 "$mise_bin" exec -- corepack prepare pnpm@11.18.0 --activate
 
-printf 'mise: %s\n' "$("$mise_bin" --version)"
-printf 'node: %s\n' "$("$mise_bin" exec -- node --version)"
-printf 'pnpm: %s\n' "$("$mise_bin" exec -- pnpm --version)"
+log_info "mise: $("$mise_bin" --version)"
+log_info "node: $("$mise_bin" exec -- node --version)"
+log_info "pnpm: $("$mise_bin" exec -- pnpm --version)"
