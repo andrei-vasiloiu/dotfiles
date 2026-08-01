@@ -138,3 +138,23 @@ glog() {
 
   [[ -n "$commit" ]] && git show --color=always "$commit" | less -R
 }
+
+bash-profile() {
+  local profile
+
+  profile="$(mktemp)"
+
+  PS4='+ ${BASH_SOURCE}:${LINENO}: ' \
+    BASH_XTRACEFD=3 \
+    bash -xlic exit 3>"$profile" >/dev/null 2>&1
+
+  if command -v batcat >/dev/null 2>&1; then
+    batcat --language=bash --paging=always "$profile"
+  elif command -v bat >/dev/null 2>&1; then
+    bat --language=bash --paging=always "$profile"
+  else
+    less "$profile"
+  fi
+
+  rm -f "$profile"
+}
