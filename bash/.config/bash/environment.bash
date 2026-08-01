@@ -1,4 +1,4 @@
-gISTCONTROL=ignoreboth:erasedups
+HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=50000
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T  '
