@@ -25,11 +25,6 @@ if command -v fzf >/dev/null 2>&1; then
   fi
 fi
 
-if command -v fzf >/dev/null 2>&1; then
-  bind -x '"\C-f": vf'
-  bind -x '"\C-gb": gco'
-  bind -x '"\C-gl": glog'
-fi
 
 # Completion behavior
 bind 'set completion-ignore-case on'
