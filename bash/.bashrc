@@ -16,3 +16,5 @@ do
 done
 
 unset file
+
+. "$HOME/.local/bin/env"
