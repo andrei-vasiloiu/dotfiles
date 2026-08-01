@@ -59,3 +59,14 @@
 [status]
     short = true
     branch = true
+
+[help]
+    autoCorrect = prompt
+
+[grep]
+    lineNumber = true
+    column = true
+
+[log]
+    date = iso
+    decorate = auto
