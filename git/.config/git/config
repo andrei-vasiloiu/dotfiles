@@ -37,7 +37,25 @@
 
 [diff]
     colorMoved = default
+    algorithm = histogram
+    mnemonicPrefix = true
 
 [pager]
     branch = false
     status = false
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[commit]
+    verbose = true
+
+[status]
+    short = true
+    branch = true
