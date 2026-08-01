@@ -7,7 +7,10 @@ bluez
 brightnessctl
 cliphist
 # Desktop integration
+eog
+evince
 file-roller
+firefox-esr
 fonts-inter
 fonts-noto
 fonts-noto-color-emoji
@@ -54,3 +57,4 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-wlr
 xdg-user-dirs
+xdg-utils

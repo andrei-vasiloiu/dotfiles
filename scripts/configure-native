@@ -15,6 +15,7 @@ fi
 
 packages=(
   bin
+  desktop
   foot
   fuzzel
   gtk
