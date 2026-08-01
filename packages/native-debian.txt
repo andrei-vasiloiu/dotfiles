@@ -1,61 +1,68 @@
-
-acpi
-adwaita-icon-theme
-# Appearance
-blueman
-bluez
-brightnessctl
-cliphist
-desktop-file-utils
-# Desktop integration
-eog
-evince
-file-roller
-firefox-esr
-fonts-inter
-fonts-noto
-fonts-noto-color-emoji
-foot
-fuzzel
-fwupd
-greetd
-grim
-gvfs
-gvfs-backends
-# Laptop integration
-# Login Manager
-mako-notifier
-network-manager
-network-manager-gnome
-papirus-icon-theme
-pavucontrol
-pipewire
-pipewire-pulse
-playerctl
-policykit-1-gnome
-# Portals and permissions
-slurp
-swappy
+# Wayland and Sway
 sway
 swaybg
 swayidle
 swaylock
-thermald
-thunar
-thunar-archive-plugin
-thunar-volman
-tlp
-tuigreet
-tumbler
-udisks2
-upower
+foot
 waybar
-# Wayland and Sway
+fuzzel
+mako-notifier
+
 # Wayland utilities
-wireplumber
+grim
+slurp
+swappy
 wl-clipboard
+cliphist
+brightnessctl
+playerctl
+
+# Portals and permissions
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-wlr
-xdg-user-dirs
+policykit-1-gnome
 xdg-utils
+
+# Desktop integration
+network-manager
+network-manager-gnome
+bluez
+blueman
+pipewire
+pipewire-pulse
+wireplumber
+pavucontrol
+thunar
+thunar-archive-plugin
+thunar-volman
+tumbler
+gvfs
+gvfs-backends
+udisks2
+file-roller
+desktop-file-utils
+xdg-user-dirs
+
+# Applications
+firefox-esr
+evince
+eog
+
+# Appearance
+fonts-inter
+fonts-noto
+fonts-noto-color-emoji
+papirus-icon-theme
+adwaita-icon-theme
+
+# Laptop integration
+tlp
+thermald
+upower
+fwupd
+acpi
+
+# Login manager
+greetd
+tuigreet
