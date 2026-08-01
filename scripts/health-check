@@ -34,6 +34,17 @@ check_command() {
   fi
 }
 
+check_file() {
+  local path="$1"
+  local label="${2:-$1}"
+
+  if [[ -f "$path" ]]; then
+    ok "$label"
+  else
+    fail "$label"
+  fi
+}
+
 printf 'Platform\n'
 
 if is_wsl; then
@@ -80,8 +91,18 @@ check_command direnv
 check_command rg "ripgrep"
 check_command fdfind "fd"
 check_command batcat "bat"
+check_command eza
 check_command tree-sitter "Tree-sitter CLI"
 check_command stylua "StyLua"
+
+printf '\nDotfiles\n'
+check_file "$HOME/.bashrc" "Bash dotfile"
+check_file "$HOME/.config/git/config" "Git config"
+check_file "$HOME/.config/mise/config.toml" "mise config"
+check_file "$HOME/.config/nvim/init.lua" "Neovim config"
+check_file "$HOME/.config/tmux/tmux.conf" "tmux config"
+check_file "$HOME/.pi/agent/settings.json" "Pi settings"
+check_file "$HOME/.pi/agent/models-store.json" "Pi model store"
 
 printf '\nCLI utilities\n'
 check_command btop
@@ -92,10 +113,18 @@ check_command jq
 check_command yq
 check_command tldr
 check_command glow
+check_command shellcheck
+check_command shfmt
 check_command cmake
 check_command ninja
 check_command gdb
 check_command strace
+check_command git-lfs "Git LFS"
+check_command lsof
+check_command nc "netcat"
+check_command rsync
+check_command sqlite3
+check_command tree
 
 if ! is_wsl; then
   printf '\nDesktop\n'
