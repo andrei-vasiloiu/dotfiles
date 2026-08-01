@@ -27,22 +27,6 @@ if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook bash)"
 fi
 
-if command -v fzf >/dev/null 2>&1; then
-  if fzf --bash >/dev/null 2>&1; then
-    eval "$(fzf --bash)"
-  elif [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
-    # shellcheck disable=SC1091
-    source /usr/share/doc/fzf/examples/key-bindings.bash
-    # shellcheck disable=SC1091
-    source /usr/share/doc/fzf/examples/completion.bash
-  fi
-fi
-
-# Restore standard Readline bindings overridden by fzf
-bind '"\C-r": reverse-search-history'
-bind '"\C-t": transpose-chars'
-bind '"\ec": capitalize-word'
-
 # Completion behavior
 bind 'set completion-ignore-case on'
 bind 'set completion-map-case on'
