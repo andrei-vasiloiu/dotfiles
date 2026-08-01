@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+mapfile -t packages < <(
+    grep -hEv '^[[:space:]]*(#|$)' \
+        "$repo_root/packages/common.txt"
+)
+
+sudo apt-get update
+sudo apt-get install -y "${packages[@]}"
