@@ -40,6 +40,8 @@ opt.splitkeep = "screen"
 opt.laststatus = 3
 opt.showmode = false
 
+opt.spelllang = { "en_us" }
+
 local release = vim.uv.os_uname().release:lower()
 
 if release:find("microsoft", 1, true) then
