@@ -26,13 +26,7 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 if command -v fzf >/dev/null 2>&1; then
-  bind -x '"\C-r": fh'
-fi
-
-if command -v fzf >/dev/null 2>&1; then
   bind -x '"\C-f": vf'
-fi
-
-if command -v fzf >/dev/null 2>&1; then
-  bind -x '"\ec": cdf'
+  bind -x '"\C-gb": gco'
+  bind -x '"\C-gl": glog'
 fi
