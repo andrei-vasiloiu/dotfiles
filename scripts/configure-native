@@ -19,6 +19,7 @@ packages=(
   fuzzel
   gtk
   mako
+  portals
   sway
   swaylock
   swappy
