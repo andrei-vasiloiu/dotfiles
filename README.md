@@ -135,7 +135,7 @@ Debian
 + this repository
 + GitHub
 + Bitwarden
-
+```
 
 ## Native Debian laptop
 
