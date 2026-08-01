@@ -8,3 +8,5 @@ fi
 
 uv tool install --force ruff
 uv tool install --force basedpyright
+uv tool install --force \
+  'git+https://github.com/JohnnyMorganz/StyLua.git@v2.5.2'
