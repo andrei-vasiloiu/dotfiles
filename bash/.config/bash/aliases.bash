@@ -10,10 +10,10 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
 if command -v eza >/dev/null 2>&1; then
-  alias ls='eza --group-directories-first'
-  alias ll='eza --long --group --git --group-directories-first'
-  alias la='eza --long --all --group --git --group-directories-first'
-  alias lt='eza --tree --level=2 --group-directories-first'
+  alias ls='eza --group-directories-first --icons=auto'
+  alias ll='eza --long --header --group --git --icons=auto --group-directories-first'
+  alias la='eza --long --header --all --group --git --icons=auto --group-directories-first'
+  alias lt='eza --tree --level=2 --icons=auto --group-directories-first --ignore-glob=".git|node_modules|.venv|dist|build|bin|obj"'
 else
   alias ll='ls -lah'
   alias la='ls -la'
