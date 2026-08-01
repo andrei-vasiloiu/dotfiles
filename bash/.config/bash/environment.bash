@@ -62,3 +62,10 @@ if command -v fzf >/dev/null 2>&1; then
     --color=border:#363646
   '
 fi
+
+# Interactive shell ergonomics
+shopt -s autocd
+shopt -s cdspell
+shopt -s checkwinsize
+shopt -s direxpand
+shopt -s globstar
