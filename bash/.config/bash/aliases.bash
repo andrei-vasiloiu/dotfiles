@@ -26,7 +26,7 @@ elif command -v batcat >/dev/null 2>&1; then
 fi
 
 if command -v fd >/dev/null 2>&1; then
-  alias fd='fd'
+  :
 elif command -v fdfind >/dev/null 2>&1; then
   alias fd='fdfind'
 fi
