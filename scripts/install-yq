@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+source "$repo_root/scripts/versions.env"
+
+require_x86_64
+
+install_path="/usr/local/bin/yq"
+download="/tmp/yq_linux_amd64"
+
+if command -v yq >/dev/null 2>&1; then
+  current="$(yq --version | awk '{print $4}' | sed 's/^v//')"
+
+  if [[ "$current" == "$YQ_VERSION" ]]; then
+    log_info "yq already installed: ${current}"
+    exit 0
+  fi
+fi
+
+log_info "Installing yq ${YQ_VERSION}"
+
+curl -fL \
+  "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64" \
+  -o "$download"
+
+sudo install -m 0755 "$download" "$install_path"
+
+log_info "yq: $(yq --version)"

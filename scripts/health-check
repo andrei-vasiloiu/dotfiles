@@ -80,6 +80,7 @@ check_command fdfind "fd"
 check_command batcat "bat"
 check_command tree-sitter "Tree-sitter CLI"
 check_command stylua "StyLua"
+check_command yq
 
 printf '\nEditor\n'
 

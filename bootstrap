@@ -12,6 +12,9 @@ require_debian
 log_step "Installing APT packages"
 "$repo_root/scripts/install-apt"
 
+log_step "Installing yq"
+"$repo_root/scripts/install-yq"
+
 log_step "Installing Python tooling"
 "$repo_root/scripts/install-uv"
 
