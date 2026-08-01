@@ -133,3 +133,18 @@ Debian
 + GitHub
 + Bitwarden
 
+
+## Native Debian laptop
+
+The native Debian workstation uses the same portable toolchain plus the Sway desktop and laptop integration layer.
+
+After installing minimal Debian and cloning this repository:
+
+```bash
+./scripts/install-native
+./bootstrap
+```
+
+`install-native` is guarded and will refuse to run under WSL.
+
+Native-only configuration for foot, Sway, Waybar, Fuzzel, Mako, power management, portals, and related desktop services will be added before the laptop build.
