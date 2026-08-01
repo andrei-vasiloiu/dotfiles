@@ -57,3 +57,6 @@ alias cp='cp --interactive'
 alias mv='mv --interactive'
 alias rm='rm --interactive=once'
 alias mkdir='mkdir --parents'
+
+alias tree='tree -C --dirsfirst \
+  -I ".git|node_modules|dist|build|coverage|target|.venv|bin|obj"'
