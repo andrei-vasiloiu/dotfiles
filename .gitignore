@@ -6,3 +6,4 @@
 # Pi credentials and runtime sessions
 pi/.pi/agent/auth.json
 pi/.pi/agent/sessions/
+pi/.pi/agent/models-store.json
