@@ -13,8 +13,23 @@ if ! command -v dotnet >/dev/null 2>&1; then
   sudo apt-get install -y dotnet-sdk-10.0
 fi
 
-if ! command -v roslyn-language-server >/dev/null 2>&1; then
-  dotnet tool install --global roslyn-language-server --prerelease
+roslyn_version="5.11.0-1.26379.6"
+
+installed="$(
+  dotnet tool list --global |
+    awk '$1 == "roslyn-language-server" { print $2 }'
+)"
+
+if [[ "$installed" != "$roslyn_version" ]]; then
+  if [[ -n "$installed" ]]; then
+    dotnet tool update --global \
+      roslyn-language-server \
+      --version "$roslyn_version"
+  else
+    dotnet tool install --global \
+      roslyn-language-server \
+      --version "$roslyn_version"
+  fi
 fi
 
 printf 'dotnet: %s\n' "$(dotnet --version)"
