@@ -107,7 +107,7 @@ if command -v nvim >/dev/null 2>&1; then
   if [[ "$nvim_version" == "NVIM v${NEOVIM_VERSION}" ]]; then
     ok "$nvim_version"
   else
-    warn "Expected NVIM v0.12.4, found $nvim_version"
+    warn "Expected NVIM v${NEOVIM_VERSION}, found $nvim_version"
   fi
 
   if nvim --headless +qa >/dev/null 2>&1; then
