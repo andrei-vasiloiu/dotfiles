@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 version="0.12.4"
 install_root="/opt/nvim-linux-x86_64"
 archive="/tmp/nvim-linux-x86_64.tar.gz"
+
+source "$repo_root/scripts/lib/logging.sh"
 
 if command -v nvim >/dev/null 2>&1; then
   current="$(nvim --version | head -1)"
 
   if [[ "$current" == "NVIM v${version}" ]]; then
-    printf 'Neovim already installed: %s\n' "$current"
+    log_info "Neovim already installed: ${current}"
     exit 0
   fi
 fi
+
+log_info "Installing Neovim ${version}"
 
 curl -fL \
   "https://github.com/neovim/neovim/releases/download/v${version}/nvim-linux-x86_64.tar.gz" \
@@ -26,4 +31,4 @@ sudo chmod 755 \
   "$install_root/bin" \
   "$install_root/bin/nvim"
 
-printf 'Neovim installed: %s\n' "$("$install_root/bin/nvim" --version | head -1)"
+log_info "Neovim: $("$install_root/bin/nvim" --version | head -1)"
