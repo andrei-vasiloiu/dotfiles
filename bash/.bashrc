@@ -37,3 +37,7 @@ case ":$PATH:" in
   *":$NVIM_HOME/bin:"*) ;;
   *) export PATH="$NVIM_HOME/bin:$PATH" ;;
 esac
+
+if declare -F vf >/dev/null 2>&1; then
+  bind -x '"\C-f": vf'
+fi

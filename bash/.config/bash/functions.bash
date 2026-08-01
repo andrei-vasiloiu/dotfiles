@@ -174,3 +174,37 @@ jqp() {
     jq '.'
   fi
 }
+
+vf() {
+  local file
+  local preview_command
+
+  if command -v bat >/dev/null 2>&1; then
+    preview_command='bat --color=always --style=numbers --line-range=:300 {}'
+  elif command -v batcat >/dev/null 2>&1; then
+    preview_command='batcat --color=always --style=numbers --line-range=:300 {}'
+  else
+    preview_command='sed -n "1,300p" {}'
+  fi
+
+  file="$(
+    fd \
+      --type file \
+      --hidden \
+      --exclude .git \
+      --exclude node_modules \
+      --exclude dist \
+      --exclude build \
+      --exclude coverage \
+      --exclude target \
+      --exclude .venv \
+      --exclude bin \
+      --exclude obj |
+      fzf \
+        --prompt='file › ' \
+        --preview="$preview_command" \
+        --preview-window='right,60%,wrap'
+  )" || return
+
+  [[ -n "$file" ]] && "${EDITOR:-nvim}" -- "$file"
+}
