@@ -2,9 +2,11 @@
 set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-roslyn_version="5.11.0-1.26379.6"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/versions.env"
+
+roslyn_version="$ROSLYN_VERSION"
 
 if ! command -v dotnet >/dev/null 2>&1; then
   log_info "Installing Microsoft .NET SDK 10"
