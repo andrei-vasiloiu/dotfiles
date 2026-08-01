@@ -1,0 +1,6 @@
+--theme="ansi"
+--style="numbers,changes,header"
+--paging="auto"
+--pager="less -FRX"
+--map-syntax="*.jsonc:JSON"
+--map-syntax=".env*:Bourne Again Shell (bash)"

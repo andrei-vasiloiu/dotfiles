@@ -39,6 +39,7 @@ log_step "Installing Neovim"
 log_step "Applying dotfiles"
 stow --dir="$repo_root" --target="$HOME" \
   bash \
+  bat \
   git \
   mise \
   nvim \
