@@ -74,7 +74,7 @@ wsl -d Debian
 Then run:
 
 ```bash
-cd ~/src/github.com/dotfiles
+cd ~/src/github.com/andrei-vasiloiu/dotfiles
 ./bootstrap
 ```
 
