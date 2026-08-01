@@ -51,8 +51,8 @@ sudo apt install -y git curl ca-certificates stow openssh-client
 Configure GitHub SSH authentication, then clone:
 
 ```bash
-mkdir -p ~/src/github.com
-cd ~/src/github.com
+mkdir -p ~/src/github.com/andrei-vasiloiu
+cd ~/src/github.com/andrei-vasiloiu
 git clone git@github.com:andrei-vasiloiu/dotfiles.git
 cd dotfiles
 git switch develop
@@ -132,7 +132,4 @@ Debian
 + this repository
 + GitHub
 + Bitwarden
-+ SSH/YubiKey authentication
-```
 
-Uncommitted and unpushed work is not protected.
