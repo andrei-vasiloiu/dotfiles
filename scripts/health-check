@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -u
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+source "$repo_root/scripts/versions.env"
+
 failures=0
 warnings=0
 
@@ -75,6 +78,8 @@ check_command direnv
 check_command rg "ripgrep"
 check_command fdfind "fd"
 check_command batcat "bat"
+check_command tree-sitter "Tree-sitter CLI"
+check_command stylua "StyLua"
 
 printf '\nEditor\n'
 
@@ -83,7 +88,7 @@ check_command nvim "Neovim"
 if command -v nvim >/dev/null 2>&1; then
   nvim_version="$(nvim --version | head -1)"
 
-  if [[ "$nvim_version" == "NVIM v0.12.4" ]]; then
+  if [[ "$nvim_version" == "NVIM v${NEOVIM_VERSION}" ]]; then
     ok "$nvim_version"
   else
     warn "Expected NVIM v0.12.4, found $nvim_version"
@@ -128,6 +133,16 @@ fi
 printf '\nAI tooling\n'
 
 check_command pi "Pi coding agent"
+
+if command -v pi >/dev/null 2>&1; then
+  pi_version="$(pi --version)"
+
+  if [[ "$pi_version" == "$PI_VERSION" ]]; then
+    ok "Pi ${pi_version}"
+  else
+    warn "Expected Pi ${PI_VERSION}, found ${pi_version}"
+  fi
+fi
 
 printf '\nGitHub\n'
 
