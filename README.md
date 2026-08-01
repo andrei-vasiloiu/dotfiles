@@ -147,6 +147,7 @@ After installing minimal Debian and cloning this repository:
 ./scripts/install-native
 ./bootstrap
 ./scripts/configure-native
+./scripts/configure-services
 ./scripts/configure-greetd
 ```
 
