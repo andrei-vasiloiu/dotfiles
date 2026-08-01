@@ -137,6 +137,12 @@ check_command rsync
 check_command sqlite3
 check_command tree
 
+if declare -F command_not_found_handle >/dev/null 2>&1; then
+  ok "command-not-found handler"
+else
+  fail "command-not-found handler"
+fi
+
 if ! is_wsl; then
   printf '\nDesktop\n'
 
