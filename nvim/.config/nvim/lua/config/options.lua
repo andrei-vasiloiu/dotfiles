@@ -35,6 +35,11 @@ opt.updatetime = 250
 opt.timeoutlen = 400
 opt.completeopt = { "menu", "menuone", "noselect" }
 
+opt.confirm = true
+opt.splitkeep = "screen"
+opt.laststatus = 3
+opt.showmode = false
+
 local release = vim.uv.os_uname().release:lower()
 
 if release:find("microsoft", 1, true) then
