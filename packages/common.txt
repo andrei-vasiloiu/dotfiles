@@ -51,3 +51,4 @@ zip
 zoxide
 zstd
 command-not-found
+time
