@@ -1,0 +1,20 @@
+[init]
+    defaultBranch = develop
+
+[fetch]
+    prune = true
+
+[pull]
+    ff = only
+
+[push]
+    autoSetupRemote = true
+
+[rebase]
+    autoStash = true
+
+[rerere]
+    enabled = true
+
+[include]
+    path = ~/.config/local/gitconfig
