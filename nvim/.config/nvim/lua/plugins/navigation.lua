@@ -15,6 +15,12 @@ return {
       { "<leader>lr", "<cmd>FzfLua lsp_references<CR>", desc = "References" },
       { "<leader>li", "<cmd>FzfLua lsp_implementations<CR>", desc = "Implementations" },
       { "<leader>lg", "<cmd>FzfLua lsp_definitions<CR>", desc = "Definitions" },
+      { "<leader>fc", "<cmd>FzfLua files cwd=~/.config/nvim<CR>", desc = "Neovim config files" },
+      { "<leader>fw", "<cmd>FzfLua grep_cword<CR>", desc = "Search word under cursor" },
+      { "<leader>fD", "<cmd>FzfLua diagnostics_workspace<CR>", desc = "Workspace diagnostics" },
+      { "<leader>gf", "<cmd>FzfLua git_files<CR>", desc = "Git files" },
+      { "<leader>gc", "<cmd>FzfLua git_commits<CR>", desc = "Git commits" },
+      { "<leader>gb", "<cmd>FzfLua git_branches<CR>", desc = "Git branches" },
     },
 
     opts = {
