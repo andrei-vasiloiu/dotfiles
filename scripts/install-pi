@@ -3,9 +3,11 @@ set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 package="@earendil-works/pi-coding-agent"
-version="0.83.0"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/versions.env"
+
+version="$PI_VERSION"
 
 if ! command -v pnpm >/dev/null 2>&1; then
   log_error "pnpm is required before installing Pi"
