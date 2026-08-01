@@ -44,7 +44,7 @@ return {
           map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
           map("n", "K", vim.lsp.buf.hover, "Hover documentation")
 
-          map("n", "<leader>lr", vim.lsp.buf.rename, "Rename symbol")
+          map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
           map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "Code action")
           map("n", "<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
 
