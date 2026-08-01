@@ -91,3 +91,22 @@ fh() {
   READLINE_LINE="$command"
   READLINE_POINT=${#READLINE_LINE}
 }
+
+gco() {
+  local branch
+
+  git rev-parse --git-dir >/dev/null 2>&1 || {
+    printf 'Not inside a Git repository\n' >&2
+    return 1
+  }
+
+  branch="$(
+    git for-each-ref \
+      --sort=-committerdate \
+      --format='%(refname:short)' \
+      refs/heads |
+      fzf --prompt='branch › '
+  )" || return
+
+  [[ -n "$branch" ]] && git switch -- "$branch"
+}
