@@ -1,4 +1,4 @@
-HISTCONTROL=ignoreboth:erasedups
+gISTCONTROL=ignoreboth:erasedups
 HISTSIZE=50000
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T  '
@@ -13,6 +13,7 @@ export PAGER=less
 export LESS='-FRX --mouse'
 export LESSHISTFILE='-'
 export MANPAGER='less -R --use-color -Dd+r -Du+b'
+export PROMPT_DIRTRIM=4
 
 if [[ -x "$HOME/.local/bin/mise" ]]; then
   eval "$("$HOME/.local/bin/mise" activate bash)"
@@ -50,7 +51,7 @@ if command -v fzf >/dev/null 2>&1; then
     --layout=reverse
     --border=rounded
     --info=inline
-    --prompt=›\ 
+    --prompt=›\
     --pointer=›
     --marker=✓
     --bind=ctrl-j:down,ctrl-k:up
