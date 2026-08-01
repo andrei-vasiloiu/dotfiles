@@ -99,3 +99,17 @@ export GREP_COLORS='ms=01;38;5;179:mc=01;38;5;179:sl=:cx=:fn=38;5;110:ln=38;5;10
 export GCC_COLORS='error=01;38;5;167:warning=01;38;5;179:note=01;38;5;110:caret=01;38;5;114:locus=38;5;109:quote=01;38;5;223'
 
 export JQ_COLORS='0;38;5;223:0;38;5;223:0;38;5;179:0;38;5;179:0;38;5;114:0;38;5;110:0;38;5;141'
+
+export FD_OPTIONS='
+  --hidden
+  --follow
+  --exclude .git
+  --exclude node_modules
+  --exclude dist
+  --exclude build
+  --exclude coverage
+  --exclude target
+  --exclude .venv
+  --exclude bin
+  --exclude obj
+'

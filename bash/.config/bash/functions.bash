@@ -45,12 +45,16 @@ paste() {
 
 cdf() {
   local directory
+  local -a options
+
+  readarray -t options < <(
+    printf '%s\n' "$FD_OPTIONS" |
+      sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//; /^$/d'
+  )
 
   directory="$(
-    fd \
+    fd "${options[@]}" \
       --type directory \
-      --hidden \
-      --exclude .git \
       . "${1:-.}" |
       fzf --prompt='directory › '
   )" || return
@@ -62,12 +66,16 @@ cdf() {
 
 vf() {
   local file
+  local -a options
+
+  readarray -t options < <(
+    printf '%s\n' "$FD_OPTIONS" |
+      sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//; /^$/d'
+  )
 
   file="$(
-    fd \
-      --type file \
-      --hidden \
-      --exclude .git |
+    fd "${options[@]}" \
+      --type file |
       fzf \
         --prompt='file › ' \
         --preview 'batcat --color=always --style=numbers --line-range=:300 {} 2>/dev/null || sed -n "1,300p" {}'
