@@ -61,6 +61,32 @@ return {
               float = true,
             })
           end, "Next diagnostic")
+
+          if client and client:supports_method("textDocument/documentHighlight") then
+            local highlight_group =
+              vim.api.nvim_create_augroup("user_lsp_highlight_" .. args.buf, { clear = true })
+
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              group = highlight_group,
+              buffer = args.buf,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+              group = highlight_group,
+              buffer = args.buf,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = highlight_group,
+              buffer = args.buf,
+              once = true,
+              callback = function()
+                vim.lsp.buf.clear_references()
+              end,
+            })
+          end
         end,
       })
 
