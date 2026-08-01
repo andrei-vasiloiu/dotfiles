@@ -1,0 +1,94 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 0,
+
+  "modules-left": [
+    "sway/workspaces",
+    "sway/window"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "tray",
+    "network",
+    "bluetooth",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "temperature",
+    "custom/power"
+  ],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+
+  "sway/window": {
+    "max-length": 60
+  },
+
+  "clock": {
+    "format": "{:%a %b %d  %H:%M}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "network": {
+    "format-wifi": "Wi-Fi {signalStrength}%",
+    "format-ethernet": "Ethernet",
+    "format-disconnected": "Offline",
+    "tooltip-format": "{ifname}\n{ipaddr}/{cidr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  "bluetooth": {
+    "format": "Bluetooth",
+    "format-disabled": "Bluetooth off",
+    "format-connected": "Bluetooth {num_connections}",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "Vol {volume}%",
+    "format-muted": "Muted",
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+
+  "backlight": {
+    "format": "Light {percent}%",
+    "scroll-step": 5
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "Bat {capacity}%",
+    "format-charging": "Bat {capacity}% +",
+    "format-plugged": "Bat {capacity}% AC"
+  },
+
+  "temperature": {
+    "critical-threshold": 85,
+    "format": "{temperatureC}°C"
+  },
+
+  "tray": {
+    "spacing": 8
+  },
+
+  "custom/power": {
+    "format": "Power",
+    "tooltip": false,
+    "on-click": "~/.local/bin/power-menu"
+  }
+}
