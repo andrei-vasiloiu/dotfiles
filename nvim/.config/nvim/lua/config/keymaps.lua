@@ -14,3 +14,13 @@ map("v", "<", "<gv", { desc = "Indent left and reselect" })
 map("v", ">", ">gv", { desc = "Indent right and reselect" })
 map("v", "J", ":move '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "K", ":move '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+map("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
+map("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+map("n", "<leader>bl", "<cmd>buffer #<CR>", { desc = "Last buffer" })
+
+map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase split height" })
+map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease split height" })
+map("n", "<C-Left>", "<cmd>vertical resize -4<CR>", { desc = "Decrease split width" })
+map("n", "<C-Right>", "<cmd>vertical resize +4<CR>", { desc = "Increase split width" })
