@@ -1,0 +1,55 @@
+# Wayland and Sway
+sway
+foot
+waybar
+fuzzel
+mako-notifier
+swaybg
+swayidle
+swaylock
+
+# Desktop integration
+network-manager
+network-manager-gnome
+bluez
+blueman
+pipewire
+pipewire-pulse
+wireplumber
+pavucontrol
+playerctl
+thunar
+thunar-archive-plugin
+thunar-volman
+tumbler
+gvfs
+gvfs-backends
+udisks2
+file-roller
+
+# Wayland utilities
+grim
+slurp
+swappy
+wl-clipboard
+cliphist
+brightnessctl
+
+# Portals and permissions
+xdg-desktop-portal
+xdg-desktop-portal-wlr
+policykit-1-gnome
+
+# Laptop integration
+tlp
+thermald
+upower
+fwupd
+acpi
+
+# Appearance
+fonts-inter
+fonts-noto
+fonts-noto-color-emoji
+papirus-icon-theme
+adwaita-icon-theme
