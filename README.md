@@ -1,134 +1,154 @@
 # Dotfiles
 
-Portable development-environment configuration for Debian WSL2 and a future native Debian workstation.
+Reproducible Debian development environments for WSL2 and native Debian laptops.
+The repository uses GNU Stow for configuration and small, rerunnable shell scripts
+for installation, platform setup, desktop configuration, and validation.
 
-## Current scope
+## What is included
 
-Implemented and validated:
-
-- Debian 13 under WSL2
-- systemd and user services
-- Bash
-- tmux
-- Neovim 0.12.4
-- Python through uv
-- Node.js through mise
-- pnpm
-- TypeScript 7 native LSP
-- .NET 10 and Roslyn
-- rootless Podman
+- Bash, Git, tmux, and Neovim
+- Python tooling through uv
+- Node.js and pnpm through mise
+- TypeScript and .NET tooling, including Roslyn
+- Rootless Podman
 - Pi coding agent
-- GNU Stow
-- GitHub CLI
-- Core CLI utilities for system inspection, networking, API work, documentation, and data formats
-- `jq`, pinned `yq`, `xh`, `btop`, `procs`, `duf`, `tldr`, `glow`, and `delta`
-- health checks and rebuild automation
+- Sway, Wayland utilities, and native laptop integration
+- Common CLI utilities for development, system inspection, networking, APIs, and documentation
+- Health checks for commands, dotfiles, versions, systemd, and native services
 
-Native Debian desktop components such as Sway, foot, Waybar, Fuzzel, Mako, TLP, and hardware integration are deferred to the laptop build.
+Pinned versions are maintained in `scripts/versions.env`.
 
 ## Repository layout
 
 ```text
 bash/       Bash configuration
+bin/        User commands
+desktop/    Native desktop application entries
+foot/       Foot configuration
 git/        Git configuration
+gtk/        GTK configuration
 mise/       Runtime configuration
 nvim/       Neovim configuration
 pi/         Pi settings, prompts, skills, themes, and extensions
+sway/       Sway configuration
 tmux/       tmux configuration
 packages/   APT package manifests
-scripts/    Installers, WSL setup, and health checks
-bootstrap   Main installation entry point
+native/     Native system configuration, including greetd
+scripts/    Installers, platform setup, and health checks
+bootstrap   Shared installation entry point
 ```
 
-## Fresh WSL setup
+## Prerequisites
 
-Install Debian WSL2 and create your normal Linux user.
-
-Install the minimum bootstrap dependencies:
+The setup targets x86_64 Debian 13 with `systemd`. Start from a normal Debian
+user with `sudo` access, then install the tools needed to clone the repository:
 
 ```bash
 sudo apt update
-sudo apt install -y git curl ca-certificates stow openssh-client
+sudo apt install -y git curl ca-certificates openssh-client sudo
 ```
 
-Configure GitHub SSH authentication, then clone:
+Configure GitHub SSH authentication, then clone the repository:
 
 ```bash
 mkdir -p ~/src/github.com/andrei-vasiloiu
 cd ~/src/github.com/andrei-vasiloiu
 git clone git@github.com:andrei-vasiloiu/dotfiles.git
+git -C dotfiles switch develop
 cd dotfiles
-git switch develop
 ```
 
-Prepare WSL:
+## WSL2 setup
+
+Run the WSL preparation script first. It enables systemd, configures the default
+user, disables the unnecessary WSL getty, and enables user lingering:
 
 ```bash
 ./scripts/configure-wsl
 ```
 
-From PowerShell:
+Restart the distribution from PowerShell:
 
 ```powershell
 wsl --terminate Debian
 wsl -d Debian
 ```
 
-Then run:
+Then install the shared environment and apply the shared dotfiles:
 
 ```bash
 cd ~/src/github.com/andrei-vasiloiu/dotfiles
 ./bootstrap
 ```
 
+`bootstrap` installs the common and WSL package manifests, fonts, language and
+development tools, and shared Stow packages. It finishes by running the health
+check.
+
+## Native Debian setup
+
+Run the single native entry point on a native Debian installation:
+
+```bash
+./scripts/setup-native
+```
+
+It runs these stages in order:
+
+1. Install native Debian packages.
+2. Run `bootstrap` for the shared environment.
+3. Apply the native desktop configuration.
+4. Enable NetworkManager, Bluetooth, TLP, and thermald.
+5. Install and enable the greetd configuration.
+6. Run the final health check.
+
+The native entry point, as well as each native-only stage, refuses to run under
+WSL before making system changes.
+
 ## Validation
+
+Run the health check at any time:
 
 ```bash
 ./scripts/health-check
 ```
 
-Expected result:
+A successful run has zero failures. GitHub SSH authentication is reported as a
+warning when the key is not loaded or GitHub is unavailable; this does not fail
+the check.
 
-```text
-0 failure(s), 0 warning(s)
+Before committing shell changes, run:
+
+```bash
+bash -n scripts/health-check scripts/setup-native
+shellcheck -x scripts/health-check scripts/setup-native
 ```
 
-GitHub SSH may warn until the key is loaded into the SSH agent.
+## Secrets and ignored state
 
-## Secrets
-
-The repository must not contain:
-
-- SSH private keys
-- API tokens
-- `.env` files
-- Bitwarden exports
-- Pi authentication data
-- Pi sessions
-
-Pi configuration is tracked, but these paths are ignored:
+Never commit private keys, API tokens, `.env` files, Bitwarden exports, or Pi
+authentication data. Pi runtime state is ignored:
 
 ```text
 pi/.pi/agent/auth.json
 pi/.pi/agent/sessions/
 ```
 
-## Branch policy
+## Branch and commit policy
 
-`develop` is the default working branch.
-
-Use small, descriptive commits:
+`develop` is the working branch. Keep commits small and use the repository's
+conventional `scope: description` style:
 
 ```text
 bash: preserve prompt hooks
-tmux: make clipboard platform-aware
-nvim: add WSL clipboard provider
-tooling: add Pi coding agent
+tmux: configure CSI-U extended keys
+health: verify native services are enabled
+native: add unified setup entry point
 ```
 
 ## Recovery model
 
-The workstation is treated as rebuildable:
+The workstation is rebuildable from:
 
 ```text
 Debian
@@ -136,21 +156,3 @@ Debian
 + GitHub
 + Bitwarden
 ```
-
-## Native Debian laptop
-
-The native Debian workstation uses the same portable toolchain plus the Sway desktop and laptop integration layer.
-
-After installing minimal Debian and cloning this repository:
-
-```bash
-./scripts/install-native
-./bootstrap
-./scripts/configure-native
-./scripts/configure-services
-./scripts/configure-greetd
-```
-
-Both native scripts are guarded and will refuse to run under WSL.
-
-Native-only configuration for foot, Sway, Waybar, Fuzzel, Mako, power management, portals, and related desktop services will be added before the laptop build.
