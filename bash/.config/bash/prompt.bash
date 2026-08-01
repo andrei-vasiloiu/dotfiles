@@ -25,4 +25,24 @@ __prompt_command() {
   PS1+="\n\[\e[38;5;114m\]❯\[\e[0m\] "
 }
 
-PROMPT_COMMAND="history -a; history -n; __prompt_command"
+__prompt_history_sync() {
+  history -a
+  history -n
+}
+
+if ! declare -p PROMPT_COMMAND 2>/dev/null | grep -q 'declare \-a'; then
+  existing_prompt_command="${PROMPT_COMMAND:-}"
+  unset PROMPT_COMMAND
+  declare -a PROMPT_COMMAND=()
+
+  if [[ -n "$existing_prompt_command" ]]; then
+    PROMPT_COMMAND+=("$existing_prompt_command")
+  fi
+
+  unset existing_prompt_command
+fi
+
+PROMPT_COMMAND+=(
+  __prompt_history_sync
+  __prompt_command
+)
