@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+
+require_debian
+
+if is_wsl; then
+  log_error "Native desktop configuration must not be applied under WSL"
+  exit 1
+fi
+
+packages=(
+  bin
+  foot
+  fuzzel
+  gtk
+  mako
+  sway
+  swaylock
+  waybar
+)
+
+log_info "Applying native desktop dotfiles"
+
+stow \
+  --dir="$repo_root" \
+  --target="$HOME" \
+  --restow \
+  "${packages[@]}"
+
+log_info "Native desktop dotfiles applied"
