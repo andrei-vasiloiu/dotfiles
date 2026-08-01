@@ -45,6 +45,17 @@ check_file() {
   fi
 }
 
+check_enabled_service() {
+  local service="$1"
+  local label="${2:-$1}"
+
+  if systemctl is-enabled --quiet "$service"; then
+    ok "$label enabled"
+  else
+    fail "$label not enabled"
+  fi
+}
+
 printf 'Platform\n'
 
 if is_wsl; then
@@ -148,6 +159,12 @@ if ! is_wsl; then
   check_command cliphist
   check_command brightnessctl
   check_command tuigreet
+
+  check_enabled_service NetworkManager.service "NetworkManager"
+  check_enabled_service bluetooth.service "Bluetooth"
+  check_enabled_service tlp.service "TLP"
+  check_enabled_service thermald.service "thermald"
+  check_enabled_service greetd.service "greetd"
 fi
 
 printf '\nEditor\n'
