@@ -38,6 +38,10 @@ if command -v fzf >/dev/null 2>&1; then
   fi
 fi
 
+# Restore standard Readline bindings overridden by fzf
+bind '"\C-r": reverse-search-history'
+bind '"\C-t": transpose-chars'
+bind '"\ec": capitalize-word'
 
 # Completion behavior
 bind 'set completion-ignore-case on'
