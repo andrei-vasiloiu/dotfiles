@@ -18,6 +18,14 @@ if command -v uvx >/dev/null 2>&1; then
   eval "$(uvx --generate-shell-completion bash)"
 fi
 
+if command -v podman >/dev/null 2>&1; then
+  eval "$(podman completion bash)"
+fi
+
+if command -v pnpm >/dev/null 2>&1; then
+  eval "$(pnpm completion bash)"
+fi
+
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
