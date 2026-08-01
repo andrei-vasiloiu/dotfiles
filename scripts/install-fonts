@@ -15,6 +15,7 @@ font_dir="$HOME/.local/share/fonts/JetBrainsMonoNerdFont"
 cleanup() {
   rm -f "$archive"
 }
+
 trap cleanup EXIT
 
 url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${NERD_FONTS_VERSION}/JetBrainsMono.tar.xz"
@@ -28,6 +29,13 @@ curl \
   --silent \
   "$url" \
   --output "$archive"
+
+log_info "Verifying JetBrainsMono Nerd Font archive"
+
+printf '%s  %s\\n' \\
+  "$NERD_FONTS_JETBRAINS_MONO_SHA256" \\
+  "$archive" |
+  sha256sum --check --status
 
 mkdir -p "$font_dir"
 rm -f "$font_dir"/*
