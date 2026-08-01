@@ -89,3 +89,13 @@ if command -v dircolors >/dev/null 2>&1 &&
 fi
 
 export EZA_TIME_STYLE=long-iso
+
+# CLI color output
+export CLICOLOR=1
+export COLORTERM=truecolor
+
+export GREP_COLORS='ms=01;38;5;179:mc=01;38;5;179:sl=:cx=:fn=38;5;110:ln=38;5;109:bn=38;5;109:se=38;5;167'
+
+export GCC_COLORS='error=01;38;5;167:warning=01;38;5;179:note=01;38;5;110:caret=01;38;5;114:locus=38;5;109:quote=01;38;5;223'
+
+export JQ_COLORS='0;38;5;223:0;38;5;223:0;38;5;179:0;38;5;179:0;38;5;114:0;38;5;110:0;38;5;141'
