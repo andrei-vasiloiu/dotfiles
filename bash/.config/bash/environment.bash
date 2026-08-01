@@ -12,10 +12,12 @@ shopt -s lithist
 export EDITOR=nvim
 export VISUAL=nvim
 export GIT_EDITOR=nvim
+export GH_EDITOR=nvim
 export SYSTEMD_EDITOR=nvim
 export SUDO_EDITOR=nvim
 
 export PAGER=less
+export GH_PAGER=less
 export SYSTEMD_PAGER=less
 export LESS='-FRX --mouse'
 export LESSHISTFILE='-'
