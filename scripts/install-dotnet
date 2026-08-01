@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+roslyn_version="5.11.0-1.26379.6"
+
+source "$repo_root/scripts/lib/logging.sh"
+
 if ! command -v dotnet >/dev/null 2>&1; then
+  log_info "Installing Microsoft .NET SDK 10"
+
   tmp_package="/tmp/packages-microsoft-prod.deb"
 
   wget \
@@ -11,9 +18,9 @@ if ! command -v dotnet >/dev/null 2>&1; then
   sudo dpkg -i "$tmp_package"
   sudo apt-get update
   sudo apt-get install -y dotnet-sdk-10.0
+else
+  log_info ".NET already installed: $(dotnet --version)"
 fi
-
-roslyn_version="5.11.0-1.26379.6"
 
 installed="$(
   dotnet tool list --global |
@@ -22,15 +29,19 @@ installed="$(
 
 if [[ "$installed" != "$roslyn_version" ]]; then
   if [[ -n "$installed" ]]; then
+    log_info "Updating Roslyn language server to ${roslyn_version}"
     dotnet tool update --global \
       roslyn-language-server \
       --version "$roslyn_version"
   else
+    log_info "Installing Roslyn language server ${roslyn_version}"
     dotnet tool install --global \
       roslyn-language-server \
       --version "$roslyn_version"
   fi
+else
+  log_info "Roslyn already installed: ${installed}"
 fi
 
-printf 'dotnet: %s\n' "$(dotnet --version)"
-printf 'roslyn-language-server: installed\n'
+log_info "dotnet: $(dotnet --version)"
+log_info "roslyn-language-server: ${roslyn_version}"
