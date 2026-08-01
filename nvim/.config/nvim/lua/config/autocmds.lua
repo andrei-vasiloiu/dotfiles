@@ -50,3 +50,21 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.tabstop = 2
   end,
 })
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = group,
+  command = "checktime",
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = group,
+  callback = function(args)
+    local save = vim.fn.winsaveview()
+
+    vim.api.nvim_buf_call(args.buf, function()
+      vim.cmd([[keeppatterns %s/\s\+$//e]])
+    end)
+
+    vim.fn.winrestview(save)
+  end,
+})
