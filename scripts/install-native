@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
+source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+
+require_debian
+
+if is_wsl; then
+  log_error "Native Debian packages must not be installed under WSL"
+  exit 1
+fi
+
+mapfile -t packages < <(
+  grep -hEv '^[[:space:]]*(#|$)' \
+    "$repo_root/packages/native-debian.txt" |
+    sort -u
+)
+
+log_info "Installing ${#packages[@]} native Debian packages"
+
+sudo apt-get update
+sudo apt-get install -y "${packages[@]}"
