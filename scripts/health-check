@@ -98,7 +98,7 @@ check_command gdb
 check_command strace
 
 if ! is_wsl; then
-  printf '\\nDesktop\\n'
+  printf '\nDesktop\n'
 
   check_command sway
   check_command foot
