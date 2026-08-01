@@ -97,6 +97,30 @@ check_command ninja
 check_command gdb
 check_command strace
 
+if ! is_wsl; then
+  printf '\\nDesktop\\n'
+
+  check_command sway
+  check_command foot
+  check_command waybar
+  check_command fuzzel
+  check_command mako
+  check_command swaylock
+  check_command swayidle
+  check_command nm-applet "NetworkManager applet"
+  check_command blueman-applet "Blueman applet"
+  check_command wpctl "WirePlumber controls"
+  check_command pavucontrol
+  check_command thunar
+  check_command grim
+  check_command slurp
+  check_command swappy
+  check_command wl-copy "Wayland clipboard"
+  check_command cliphist
+  check_command brightnessctl
+  check_command tuigreet
+fi
+
 printf '\nEditor\n'
 
 check_command nvim "Neovim"
