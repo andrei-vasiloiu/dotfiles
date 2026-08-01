@@ -1,0 +1,73 @@
+TERM xterm-256color
+TERM screen-256color
+TERM tmux-256color
+TERM foot
+TERM foot-extra
+
+NORMAL 00
+FILE 00
+RESET 00
+
+DIR 01;38;5;110
+LINK 38;5;109
+MULTIHARDLINK 38;5;109
+FIFO 38;5;179
+SOCK 38;5;179
+DOOR 38;5;179
+BLK 01;38;5;167
+CHR 01;38;5;167
+ORPHAN 01;38;5;203
+MISSING 01;38;5;203
+EXEC 01;38;5;114
+
+SETUID 48;5;167;38;5;234
+SETGID 48;5;179;38;5;234
+CAPABILITY 48;5;110;38;5;234
+STICKY_OTHER_WRITABLE 48;5;109;38;5;234
+OTHER_WRITABLE 48;5;179;38;5;234
+STICKY 48;5;110;38;5;234
+
+.tar 38;5;179
+.tgz 38;5;179
+.tar.gz 38;5;179
+.tar.xz 38;5;179
+.tar.zst 38;5;179
+.zip 38;5;179
+.gz 38;5;179
+.xz 38;5;179
+.zst 38;5;179
+.7z 38;5;179
+
+.jpg 38;5;175
+.jpeg 38;5;175
+.png 38;5;175
+.gif 38;5;175
+.webp 38;5;175
+.svg 38;5;175
+
+.mp3 38;5;175
+.flac 38;5;175
+.wav 38;5;175
+.mp4 38;5;175
+.mkv 38;5;175
+.webm 38;5;175
+
+.md 38;5;109
+.txt 38;5;223
+.json 38;5;179
+.jsonc 38;5;179
+.yaml 38;5;179
+.yml 38;5;179
+.toml 38;5;179
+.xml 38;5;179
+
+.sh 38;5;114
+.bash 38;5;114
+.py 38;5;110
+.ts 38;5;110
+.tsx 38;5;110
+.js 38;5;110
+.jsx 38;5;110
+.cs 38;5;141
+.go 38;5;109
+.lua 38;5;110

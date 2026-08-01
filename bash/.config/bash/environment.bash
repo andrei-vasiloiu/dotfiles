@@ -72,3 +72,8 @@ shopt -s globstar
 
 export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/config"
 
+
+if command -v dircolors >/dev/null 2>&1 &&
+   [[ -r "$HOME/.dircolors" ]]; then
+  eval "$(dircolors --sh "$HOME/.dircolors")"
+fi
