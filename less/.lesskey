@@ -1,0 +1,10 @@
+#command
+j       forw-line
+k       back-line
+J       forw-screen
+K       back-screen
+g       goto-line
+G       goto-end
+n       repeat-search
+N       reverse-search
+ESC-u   undo-hilite

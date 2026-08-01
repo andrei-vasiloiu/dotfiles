@@ -42,6 +42,7 @@ stow --dir="$repo_root" --target="$HOME" \
   bat \
   direnv \
   git \
+  less \
   mise \
   nvim \
   pi \
