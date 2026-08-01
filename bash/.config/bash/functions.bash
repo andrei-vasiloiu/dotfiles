@@ -110,3 +110,31 @@ gco() {
 
   [[ -n "$branch" ]] && git switch -- "$branch"
 }
+
+glog() {
+  local commit
+
+  git rev-parse --git-dir >/dev/null 2>&1 || {
+    printf 'Not inside a Git repository\n' >&2
+    return 1
+  }
+
+  commit="$(
+    git log \
+      --color=always \
+      --format='%C(yellow)%h%Creset %C(cyan)%ad%Creset %C(auto)%d%Creset %s %C(dim white)— %an%Creset' \
+      --date=short |
+      fzf \
+        --ansi \
+        --no-sort \
+        --prompt='commit › ' \
+        --preview="
+          commit=\$(printf \"%s\" {} | sed -E \"s/^[^[:alnum:]]*([[:xdigit:]]+).*/\1/\")
+          git show --color=always --stat --patch \"\$commit\"
+        " \
+        --preview-window='right,65%,wrap' |
+      sed -E 's/^[^[:alnum:]]*([[:xdigit:]]+).*/\1/'
+  )" || return
+
+  [[ -n "$commit" ]] && git show --color=always "$commit" | less -R
+}
