@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+"$repo_root/scripts/install-apt"
+"$repo_root/scripts/install-uv"
+"$repo_root/scripts/install-mise"
+"$repo_root/scripts/install-dotnet"
+
+stow --dir="$repo_root" --target="$HOME" \
+  bash \
+  git \
+  mise \
+  nvim \
+  tmux
+
+"$repo_root/scripts/health-check"
