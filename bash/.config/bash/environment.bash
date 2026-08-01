@@ -104,3 +104,28 @@ export JQ_COLORS='1;30:0;37:0;33:0;36:0;32:0;35'
 
 export SQLITE_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/sqlite3/history"
 export SQLITE_TMPDIR="${TMPDIR:-/tmp}"
+
+__dedupe_path() {
+  local entry
+  local -A seen=()
+  local -a unique=()
+
+  IFS=: read -r -a entries <<< "$PATH"
+
+  for entry in "${entries[@]}"; do
+    [[ -n "$entry" ]] || continue
+
+    if [[ -z "${seen[$entry]:-}" ]]; then
+      seen["$entry"]=1
+      unique+=("$entry")
+    fi
+  done
+
+  PATH="$(IFS=:; printf '%s' "${unique[*]}")"
+  export PATH
+
+  unset entries
+}
+
+__dedupe_path
+unset -f __dedupe_path
