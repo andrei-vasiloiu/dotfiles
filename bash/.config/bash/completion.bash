@@ -32,3 +32,7 @@ fi
 if command -v fzf >/dev/null 2>&1; then
   bind -x '"\C-f": vf'
 fi
+
+if command -v fzf >/dev/null 2>&1; then
+  bind -x '"\ec": cdf'
+fi
