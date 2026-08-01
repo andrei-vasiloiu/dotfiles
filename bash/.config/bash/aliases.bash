@@ -39,3 +39,6 @@ alias gl='git log --oneline --decorate --graph'
 alias v='nvim'
 
 alias sqlite3='sqlite3 -init "${XDG_CONFIG_HOME:-$HOME/.config}/sqlite3/sqliterc"'
+
+alias ff='fd --type file'
+alias fdall='fd --hidden --no-ignore'
