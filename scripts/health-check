@@ -80,7 +80,20 @@ check_command fdfind "fd"
 check_command batcat "bat"
 check_command tree-sitter "Tree-sitter CLI"
 check_command stylua "StyLua"
+
+printf '\nCLI utilities\n'
+check_command btop
+check_command procs
+check_command duf
+check_command xh
+check_command jq
 check_command yq
+check_command tldr
+check_command glow
+check_command cmake
+check_command ninja
+check_command gdb
+check_command strace
 
 printf '\nEditor\n'
 
