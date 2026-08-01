@@ -7,6 +7,9 @@ archive="/tmp/nvim-linux-x86_64.tar.gz"
 
 source "$repo_root/scripts/lib/logging.sh"
 source "$repo_root/scripts/versions.env"
+source "$repo_root/scripts/lib/platform.sh"
+
+require_x86_64
 
 version="$NEOVIM_VERSION"
 
