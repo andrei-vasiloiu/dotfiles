@@ -52,3 +52,4 @@ wireplumber
 wl-clipboard
 xdg-desktop-portal
 xdg-desktop-portal-wlr
+xdg-user-dirs

@@ -25,6 +25,10 @@ packages=(
   waybar
 )
 
+log_info "Initializing standard user directories"
+
+xdg-user-dirs-update
+
 log_info "Applying native desktop dotfiles"
 
 stow \
