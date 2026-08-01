@@ -4,12 +4,15 @@ set -Eeuo pipefail
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
+
+require_debian
 
 manifests=(
   "$repo_root/packages/common.txt"
 )
 
-if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
+if is_wsl; then
   manifests+=("$repo_root/packages/wsl.txt")
   log_info "WSL package manifest enabled"
 fi
