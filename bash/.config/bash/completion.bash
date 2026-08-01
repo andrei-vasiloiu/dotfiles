@@ -42,14 +42,16 @@ if command -v _complete_alias >/dev/null 2>&1; then
 fi
 
 # Debian package suggestions for unknown commands
-if [[ -x /usr/lib/command-not-found ]]; then
-  command_not_found_handle() {
-    /usr/lib/command-not-found -- "$1"
-    return $?
-  }
-elif [[ -x /usr/share/command-not-found/command-not-found ]]; then
-  command_not_found_handle() {
-    /usr/share/command-not-found/command-not-found -- "$1"
-    return $?
-  }
+if ! declare -F command_not_found_handle >/dev/null 2>&1; then
+  if [[ -x /usr/lib/command-not-found ]]; then
+    command_not_found_handle() {
+      /usr/lib/command-not-found -- "$1"
+      return $?
+    }
+  elif [[ -x /usr/share/command-not-found/command-not-found ]]; then
+    command_not_found_handle() {
+      /usr/share/command-not-found/command-not-found -- "$1"
+      return $?
+    }
+  fi
 fi
