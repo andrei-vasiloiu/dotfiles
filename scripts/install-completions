@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-completion_dir="$repo_root/bash/.local/share/bash-completion/completions"
+completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 
 source "$repo_root/scripts/lib/logging.sh"
 
