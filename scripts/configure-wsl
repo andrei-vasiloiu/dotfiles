@@ -4,11 +4,9 @@ set -Eeuo pipefail
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
 source "$repo_root/scripts/lib/logging.sh"
+source "$repo_root/scripts/lib/platform.sh"
 
-if ! grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
-  log_error "This script is intended for WSL"
-  exit 1
-fi
+require_wsl
 
 log_info "Writing /etc/wsl.conf"
 
