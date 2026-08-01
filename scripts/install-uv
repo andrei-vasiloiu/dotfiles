@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if command -v uv >/dev/null 2>&1; then
+  printf 'uv already installed: %s\n' "$(uv --version)"
+  exit 0
+fi
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+export PATH="$HOME/.local/bin:$PATH"
+
+uv tool install ruff
+uv tool install basedpyright
