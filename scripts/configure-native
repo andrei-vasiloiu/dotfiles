@@ -39,4 +39,8 @@ stow \
   --restow \
   "${packages[@]}"
 
+
+log_info "Updating desktop application database"
+update-desktop-database "$HOME/.local/share/applications"
+
 log_info "Native desktop dotfiles applied"

@@ -6,6 +6,7 @@ blueman
 bluez
 brightnessctl
 cliphist
+desktop-file-utils
 # Desktop integration
 eog
 evince
