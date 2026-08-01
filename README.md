@@ -19,6 +19,9 @@ Implemented and validated:
 - rootless Podman
 - Pi coding agent
 - GNU Stow
+- GitHub CLI
+- Core CLI utilities for system inspection, networking, API work, documentation, and data formats
+- `jq`, pinned `yq`, `xh`, `btop`, `procs`, `duf`, `tldr`, `glow`, and `delta`
 - health checks and rebuild automation
 
 Native Debian desktop components such as Sway, foot, Waybar, Fuzzel, Mako, TLP, and hardware integration are deferred to the laptop build.
