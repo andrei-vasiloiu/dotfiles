@@ -1,0 +1,15 @@
+--smart-case
+--hidden
+--glob=!.git/
+--glob=!node_modules/
+--glob=!dist/
+--glob=!build/
+--glob=!coverage/
+--glob=!target/
+--glob=!.venv/
+--glob=!bin/
+--glob=!obj/
+--line-number
+--column
+--heading
+--color=auto

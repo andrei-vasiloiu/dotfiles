@@ -44,6 +44,7 @@ stow --dir="$repo_root" --target="$HOME" \
   mise \
   nvim \
   pi \
+  ripgrep \
   tmux
 
 log_step "Running health check"

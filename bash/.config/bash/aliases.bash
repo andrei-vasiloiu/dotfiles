@@ -31,7 +31,6 @@ elif command -v fdfind >/dev/null 2>&1; then
   alias fd='fdfind'
 fi
 
-alias rg='rg --smart-case'
 
 alias gs='git status --short --branch'
 alias gd='git diff'

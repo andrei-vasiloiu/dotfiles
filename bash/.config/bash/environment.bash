@@ -69,3 +69,6 @@ shopt -s cdspell
 shopt -s checkwinsize
 shopt -s direxpand
 shopt -s globstar
+
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/config"
+
